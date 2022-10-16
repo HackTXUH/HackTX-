@@ -1,66 +1,28 @@
+
 const express = require('express');
 
-const router = express.Router();
+const router = express();
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
-  res.status(200).json({ msg: 'test' });
-  next();
-});
+module.exports = router;
 
-function filter_common_words(input) {
-  return input.map(word => {
-    return ![
-            'what',
-            'and',
-            'is',
-            'or',
-            'the',
-            'of',
-            'why',
-            'where',
-            'how',
-            'it',
-            'there',
-            'their',
-          ].includes(word);
-  })
+const request = require('request')
+
+module.exports = {
+    /*
+    ** This method returns a promise
+    ** which gets resolved or rejected based
+    ** on the result from the API
+    */
+    make_API_call : function(url){
+        return new Promise((resolve, reject) => {
+            request(url, { json: true }, (err, res, body) => {
+              if (err) reject(err)
+              resolve(body)
+            });
+        })
+    }
 }
 
 
-// speech-to-text from user
-router.get('/transcribe', (req, res, next) => {
-  console.log(`params: ${req.params}`);
-
-  // call api here with audio we got from frontend
-  result = req.params['sample_input'].split(' ');
 
 
-  res.status(200).json({ data: filter_common_words(result) });
-  next();
-});
-
-// text-to-speech the result
-router.get('/synthesize', (req, res, next) => {
-  console.log(`params: ${req.params}`);
-
-  res.status(200).json({ data: 'insert spoken file here'});
-  next();
-});
-
-// find related words
-router.get('/reverse-lookup', (req, res, next) => {
-  console.log(`params: ${req.params}`);
-
-  // ask word api for best related words
-  // and decide the best ones to return to the user
-  result = ['intuition', 'instinct', 'observant'];
-
-  res.status(200).json({ data: result});
-  next();
-});
-
-
-
-
-module.exports = router;
