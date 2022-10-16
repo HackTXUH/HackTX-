@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 const recorder = require('node-record-lpcm16');
 // Imports the Google Cloud client library
-const speech = require('@google-cloud/speech');
+//const speech = require('@google-cloud/speech');
 // Creates a client
-const client = new speech.SpeechClient();
+//const client = new speech.SpeechClient();
 
 function listen() {
 
