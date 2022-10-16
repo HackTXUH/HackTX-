@@ -1,7 +1,7 @@
 const express = require('express')
 const router = require('./routes')
 const app = express();
-const port = 3000
+const port = 8000
 
 //wordArray = ["portable","computer"]
 var apiUrl = "https://api.datamuse.com/words?ml="
@@ -95,8 +95,9 @@ function parseURL(wordArray){
     apiUrl = apiUrl + word + "+"
   });
   console.log(apiUrl)
-  
-  return apiUrl;
+  newURL = apiUrl
+  apiUrl = "https://api.datamuse.com/words?ml="
+  return newURL;
 }
 
 /* GET home page. */
@@ -142,6 +143,9 @@ app.get('/synthesize', (req, res, next) => {
 app.listen(port, () => console.log(`App listening on port ${port}!`))
 
 module.exports = app;
+
+
+
 
 
                       
